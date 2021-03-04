@@ -14,10 +14,6 @@ public class JpaMain {
 
         try {
 
-            Team team = new Team();
-            team.setName("teamA");
-            em.persist(team);
-
             Member member1 = new Member();
             member1.setUsername("관리자1");
             em.persist(member1);
@@ -29,12 +25,12 @@ public class JpaMain {
             em.flush();
             em.clear();
 
-            String query = "select locate('de', 'adbdefg') from Member m";
-            List<Integer> result = em.createQuery(query, Integer.class)
+            String query = "select m.team from Member m";
+            List<Team> result = em.createQuery(query, Team.class)
                     .getResultList();
 
-            for(Integer i : result) {
-                System.out.println("i = " + i);
+            for(Team s : result) {
+                System.out.println("s = " + s);
             }
 
             tx.commit();
