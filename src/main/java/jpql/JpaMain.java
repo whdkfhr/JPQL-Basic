@@ -18,29 +18,23 @@ public class JpaMain {
             team.setName("teamA");
             em.persist(team);
 
-            Member member = new Member();
-            member.setUsername("member1");
-            member.setAge(10);
-            member.setType(MemberType.ADMIN);
+            Member member1 = new Member();
+            member1.setUsername("관리자1");
+            em.persist(member1);
 
-            member.setTeam(team);
-
-            em.persist(member);
+            Member member2 = new Member();
+            member2.setUsername("관리자2");
+            em.persist(member2);
 
             em.flush();
             em.clear();
 
-            String query = "select " +
-                                "case when m.age <= 10 then '학생요금' " +
-                                    "when m.age >= 10 then '경로요금' " +
-                                    "else '일반요금' " +
-                                "end " +
-                            "from Member m";
-            List<String> result = em.createQuery(query, String.class)
+            String query = "select locate('de', 'adbdefg') from Member m";
+            List<Integer> result = em.createQuery(query, Integer.class)
                     .getResultList();
 
-            for(String s : result) {
-                System.out.println("s = " + s);
+            for(Integer i : result) {
+                System.out.println("i = " + i);
             }
 
             tx.commit();
